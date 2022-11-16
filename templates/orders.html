@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    div {
+        border: none;
+        margin-right: 100px;
+        margin-left: 100px;
+        margin-bottom: 20px;
+        width: 200px;
+        padding: 10px;
+    }
+
+    .image {
+        height: 270px;
+        width: 270px;
+    }
+
+    svg {
+        border: 20px;
+    }
+
+
+    h1 {
+        margin-left: 120px;
+    }
+
+    h4 {
+        margin-left: 120px;
+    }
+
+    body {
+        margin-left: 80px;
+        margin-right: 100px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .liked {
+        color: red;
+    }
+
+    .basket {
+        color: blue;
+    }
+</style>
+<a href='{{ url_for("main") }}' id="2">
+    <img class="q" src="https://www.ikea.com/us/en/static/ikea-logo.f7d9229f806b59ec64cb.svg" alt>
+</a>
+<h1>{{ title.cat_name }}</h1>
+<h4>{{ desc.description }}</h4>
+{% set counter = [] %}
+{% for item in items %}
+    <div style="display: inline-block;">
+        <a><img class="image" src="{{ item.image }}" alt></a>
+        <p>{{ item.item_name }}</p>
+        <p>{{ item.description }}</p>
+        <p>{{ item.price }}</p>
+        {% set c = counter.append(1) %}
+    </div>
+    {% if counter|length == 4 %}
+        {% set counter = [] %}
+        <br>
+        <br>
+    {% endif %}
+{% endfor %}
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on("click", '.like-btn', function (e) {
+            $(this).toggleClass("liked");
+            let product_id = $(this).data("product-id")
+            console.log(product_id)
+            sendData(product_id);
+        });
+    });
+    $(document).ready(function () {
+        $(document).on("click", '.bask-btn', function (e) {
+            $(this).toggleClass("basket");
+            let product_id = $(this).data("bask-id")
+            console.log(product_id)
+            sendDataBask(product_id);
+        });
+    });
+
+    function sendData(item_id) {
+        console.log(typeof (item_id));
+        window.location = `../like/${item_id}`;
+    }
+
+    function sendDataBask(item_id) {
+        console.log(typeof (item_id));
+        window.location = `../bask/${item_id}`;
+    }
+</script>
+</html>

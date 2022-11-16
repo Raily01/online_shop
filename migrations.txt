@@ -1,0 +1,170 @@
+create database sem_work;
+
+create table IF NOT EXISTS users(id serial primary key,
+                    first_name varchar(255),
+                    last_name varchar(255),
+                     birth_date date,
+                      country varchar(255),
+                       city varchar(255),
+                        address varchar(255),
+                         zipcode integer,
+                          number varchar(255),
+                           email varchar(255),
+                            pass varchar(255),
+                             currency varchar(255));
+
+create table IF NOT EXISTS category(id serial primary key,
+                        cat_name varchar(255),
+                         description varchar(255),
+                         image varchar(255)
+                         );
+
+
+create table IF NOT EXISTS items(id serial primary key,
+                    cat_id integer,
+                    foreign key (cat_id) references category(id) on delete cascade,
+                    image varchar(255),
+                    item_name varchar(255),
+                    description varchar(255),
+                    price real
+                    );
+
+create table IF NOT EXISTS likes(id serial,
+                    user_id integer,
+                    item_id integer,
+                    foreign key (user_id) references users(id) on delete cascade,
+                    foreign key (item_id) references items(id) on delete cascade
+                    );
+
+create table IF NOT EXISTS basket(id serial,
+                    user_id integer,
+                    item_id integer,
+                    foreign key (user_id) references users(id) on delete cascade,
+                    foreign key (item_id) references items(id) on delete cascade);
+
+create table IF NOT EXISTS orders(id serial,
+                    user_id integer,
+                    item_id integer,
+                    foreign key (user_id) references users(id) on delete cascade,
+                    foreign key (item_id) references items(id) on delete cascade);
+                    
+
+insert into category (cat_name, description, image) VALUES ("sofas","simple sofas","here will be image");
+
+
+insert into items (cat_id, image, item_name, description, price) VALUES (1, 'here will be image','first sofa', 'this sofa is too good',5000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (1, 'here will be image','second sofa', 'this sofa is too pretty',4000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (1, 'https://www.ikea.com/us/en/images/products/morabo-sofa-grann-bomstad-golden-brown-wood__0602112_pe680181_s5.jpg?f=s','third sofa', 'this sofa is too beautiful',4500);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (1, 'https://www.ikea.com/us/en/images/products/soederhamn-sofa-viarp-beige-brown__0802692_pe768543_s5.jpg?f=s','fourth sofa', 'this sofa is so nice',4575);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (1, 'https://www.ikea.com/us/en/images/products/uppland-sofa-with-chaise-blekinge-white__0818577_pe774499_s5.jpg?f=s','fifth sofa', 'this sofa is so big',5000);
+
+
+insert into category (cat_name, description, image) VALUES ('armchairs', 'armchairs and accent chairs', 'here will be image');
+
+
+insert into items (cat_id, image, item_name, description, price) VALUES (2, 'https://www.ikea.com/us/en/images/products/pello-armchair-holmby-natural__38296_pe130209_s5.jpg?f=s','first armchair', 'good armchair',5000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (2, 'https://www.ikea.com/us/en/images/products/backsaelen-1-5-seat-armchair-katorp-natural__0951640_pe801295_s5.jpg?f=s','second armchair', 'good armchair',4000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (2, 'https://www.ikea.com/us/en/images/products/tolkning-ottoman-with-storage-handmade-rattan__1098697_pe865490_s5.jpg?f=s','third armchair', 'good armchair',4500);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (2, 'https://www.ikea.com/us/en/images/products/buskbo-armchair-rattan-djupvik-white__0700959_pe723853_s5.jpg?f=s','fourth armchair', 'good armchair',4575);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (2, 'https://www.ikea.com/us/en/images/products/vedbo-armchair-gunnared-dark-gray__0512767_pe638683_s5.jpg?f=s','fifth armchair', 'good armchair',5000);
+
+insert into category (cat_name, description, image) VALUES ('sectionals','sectional sofas','here will be image');
+
+insert into items (cat_id, image, item_name, description, price) VALUES (3, 'https://www.ikea.com/us/en/images/products/finnala-sectional-4-seat-with-chaise-gunnared-beige__0514363_pe639433_s5.jpg?f=s','first sectional', 'good sectional',5000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (3, 'https://www.ikea.com/us/en/images/products/kivik-sectional-4-seat-with-chaise-tibbleby-beige-gray__1056150_pe848283_s5.jpg?f=s','second sectional', 'good sectional',4000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (3, 'https://www.ikea.com/us/en/images/products/soederhamn-sectional-3-seat-corner-viarp-beige-brown__0802711_pe768555_s5.jpg?f=s','third sectional', 'good sectional, extra soft',4500);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (3, 'https://www.ikea.com/us/en/images/products/kivik-sectional-5-seat-corner-tibbleby-beige-gray__1056106_pe848241_s5.jpg?f=s','fourth sectional', 'good sectional',4575);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (3, 'https://www.ikea.com/us/en/images/products/morabo-sectional-5-seat-corner-grann-bomstad-golden-brown-wood__0602458_pe680369_s5.jpg?f=s','fifth sectional', 'good sectional',5000);
+
+
+insert into category (cat_name, description, image) VALUES ('Decorative pillows & cushion covers','They are cozy, soft and make everything comfier. Plus, decorative pillows and cushion covers are a super affordable way to change the feel of your room in no time. They will breathe new life into your space.','here will be image');
+
+insert into items (cat_id, image, item_name, description, price) VALUES (4, 'https://www.ikea.com/us/en/images/products/finnala-sectional-4-seat-with-chaise-gunnared-beige__0514363_pe639433_s5.jpg?f=s','first pillow', 'good pillow',5000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (4, 'https://www.ikea.com/us/en/images/products/fjaedrar-inner-cushion-off-white__0243140_pe382470_s5.jpg?f=s','second pillow', 'good pillow',4000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (4, 'https://www.ikea.com/us/en/images/products/sanela-cushion-cover-yellow-beige__1091596_pe862526_s5.jpg?f=s','third pillow', 'good pillow, extra soft',4500);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (4, 'https://www.ikea.com/us/en/images/products/lingonoxbaer-cushion-cover-green-stripe__1055925_pe848152_s5.jpg?f=s','fourth pillow', 'good pillow',4575);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (4, 'https://www.ikea.com/us/en/images/products/asveig-cushion-cover-pink__1015383_pe830031_s5.jpg?f=s','fifth pillow', 'good pillow',5000);
+
+
+
+insert into category (cat_name, description, image) VALUES ('Throw blankets','Whether draped over your shoulders or adding a stylish touch to the arm of your sofa, our throw blankets may just be the easiest way to add warmth to your home. They give a new feeling to a room.', 'here will be image');
+
+insert into items (cat_id, image, item_name, description, price) VALUES (5, 'https://www.ikea.com/us/en/images/products/holmvi-throw-light-gray-green__1022852_pe832955_s5.jpg?f=s','first blanket', 'good blanket',5000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (5, 'https://www.ikea.com/us/en/images/products/ekkronmal-throw-yellow__1032146_pe836782_s5.jpg?f=s','second blanket', 'good blanket',4000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (5, 'https://www.ikea.com/us/en/images/products/vitmossa-throw-gray__0603361_pe680780_s5.jpg?f=s','third blanket', 'good blanket, extra soft',4500);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (5, 'https://www.ikea.com/us/en/images/products/luktvaedd-throw-black-gray__1010623_pe828179_s5.jpg?f=s','fourth blanket', 'good blanket',4575);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (5, 'https://www.ikea.com/us/en/images/products/majinger-throw-gray__0635952_pe697527_s5.jpg?f=s','fifth blanket', 'good blanket',5000);
+
+
+insert into category (cat_name, description, image) VALUES ('Candles & holders','You can create a cozy atmosphere at home anytime, any day of the week. With our wide range of scented and unscented candles and accessories, you’ll find all you need to dim the lights and turn on the atmosphere.', 'here will be image');
+
+insert into items (cat_id, image, item_name, description, price) VALUES (6, 'https://www.ikea.com/us/en/images/products/glasbjoerk-scented-pillar-candle-cedarwood-vanilla-green-gray-anthracite__1100642_pe866232_s5.jpg?f=s','first candle', 'good candle',5000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (6, 'https://www.ikea.com/us/en/images/products/klokhet-unscented-candle-light-green__1081125_pe858253_s5.jpg?f=s','second candle', 'good candle',4000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (6, 'https://www.ikea.com/us/en/images/products/skruvpil-scented-candle-in-glass-forest-lake-black__1157407_pe887685_s5.jpg?f=s','third candle', 'good candle',4500);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (6, 'https://www.ikea.com/us/en/images/products/befaesta-lantern-for-candle-indoor-outdoor-galvanized__1005754_pe825512_s5.jpg?f=s','fourth candle', 'good candle',4575);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (6, 'https://www.ikea.com/us/en/images/products/paerlband-block-candle-holder-black__0916117_pe784981_s5.jpg?f=s','fifth candle', 'good candle',5000);
+
+
+insert into category (cat_name, description, image) VALUES ('Dining tables','Dining tables are hot spots even when there’s no food on them. Playing games, helping with homework or just lingering after a meal, they’re where you share good times with family and friends.', 'here will be image');
+
+insert into items (cat_id, image, item_name, description, price) VALUES (7, 'https://www.ikea.com/us/en/images/products/skogsta-dining-table-acacia__0546603_pe656255_s5.jpg?f=s','first table', 'good table',5000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (7, 'https://www.ikea.com/us/en/images/products/laneberg-extendable-table-brown__0722922_pe733774_s5.jpg?f=s','second table', 'good table',4000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (7, 'https://www.ikea.com/us/en/images/products/ekedalen-extendable-table-white__0736970_pe740834_s5.jpg?f=s','third table', 'good table',4500);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (7, 'https://www.ikea.com/us/en/images/products/moeckelby-table-oak__0737107_pe740885_s5.jpg?f=s','fourth table', 'good table',4575);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (7, 'https://www.ikea.com/us/en/images/products/skogsta-nordviken-table-and-6-chairs-acacia-black__1097254_pe864851_s5.jpg?f=s','fifth table', 'good table',5000);
+
+
+
+insert into category (cat_name, description, image) VALUES ('Bakeware','Delicious smells, a warm kitchen and homemade bread or chocolate cake to look forward to. Baking is creative fun that kids and grown-ups love to share. ', 'here will be image');
+
+insert into items (cat_id, image, item_name, description, price) VALUES (8, 'https://www.ikea.com/us/en/images/products/vardagen-pie-plate-off-white__0710559_pe727645_s5.jpg?f=s','pie plate', 'good item',5000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (8, 'https://www.ikea.com/us/en/images/products/vardagen-measuring-cup-glass__0711282_pe728120_s5.jpg?f=s','measuring cup', 'good item',4000);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (8, 'https://www.ikea.com/us/en/images/products/tartbak-baking-mold-diamond-shaped-silicone__1010228_pe827976_s5.jpg?f=s','baking mold', 'good item',4500);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (8, 'https://www.ikea.com/us/en/images/products/laettbakad-pastry-brush-beige__0986770_pe817340_s5.jpg?f=s','pasry brush', 'good item',4575);
+
+insert into items (cat_id, image, item_name, description, price) VALUES (8, 'https://www.ikea.com/us/en/images/products/hemmabak-baking-pan-gray__0923462_pe790779_s5.jpg?f=s','baking pan', 'good item',5000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+

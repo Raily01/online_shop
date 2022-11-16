@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body style="padding-left:130px; padding-top: 40px; padding-right: 130px;">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .list {
+        display: flex;
+        overflow-x: scroll;
+        padding: 20px;
+        margin-left: 20px;
+        margin-right: 70px;
+        /* prevent accidentally going back or triggering other swipe events */
+        overscroll-behavior: contain;
+
+        /* hide scroll bar */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        /* momentum scroll on iOS */
+        -webkit-overflow-scrolling: touch;
+
+        /* disbable vertical scroll for touch */
+        touch-action: pan-x;
+    }
+
+    /* hide scroll bar */
+    .list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .item {
+        height: 309px;
+        width: 232px;
+        flex-shrink: 0;
+    }
+
+    .item:not(:last-child) {
+        margin-right: 10px;
+    }
+
+    /* hacky fix for padding at the end of the list */
+    .item:last-child {
+        position: relative;
+    }
+
+    .item:last-child::after {
+        position: absolute;
+        left: 100%;
+        height: 1px;
+        width: 20px;
+        display: block;
+        content: "";
+    }
+
+    /*
+      The styling below is only for the decoration of this demo,
+      it has no impact on scrolling or scroll behavior
+    */
+    .list {
+        list-style: none;
+        padding-left: 100px;
+    }
+
+    .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-size: 25px;
+    }
+
+    .item:nth-child(1) {
+        background-image: url(https://www.ikea.com/images/armchair-with-throw-pillow-and-blanket-on-it-7bdd1e62890378c39fd904610d34d904.png?f=xxs);
+    }
+
+    .item:nth-child(2) {
+        background-image: url(https://www.ikea.com/images/pull-out-couch-with-bedding-on-it-87ef47755393f009365a9be40a91092a.png?f=xxs);
+    }
+
+    .item:nth-child(3) {
+        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtFstnN6BcLy7e9JfrK-kY2RILVS76_ltPZQ&usqp=CAU");
+    }
+
+    .item:nth-child(4) {
+        background-image: url(https://www.ikea.com/images/sectional-sofa-6dd2e61985075c2328fde8a57dabb1ba.png?f=xxs);
+    }
+
+    .item:nth-child(5) {
+        background-image: url(https://www.ikea.com/images/pile-of-throw-pillows-and-covers-5cffc78df8fda3c7e3e2f3f81efa85b9.png?f=xxs);
+    }
+
+    .item:nth-child(6) {
+        background-image: url(https://www.ikea.com/images/throw-blanket-92bb139444c4ddfa3bbc07deebd9733a.png?f=xxs);
+    }
+
+    .item:nth-child(7) {
+        background-image: url(https://www.ikea.com/images/candle-holders-e5ab29abe59f3cd29a6899db8aa15a74.png?f=xxs);
+    }
+
+    .item:nth-child(8) {
+        background-image: url(https://www.ikea.com/images/table-with-mixing-bowl-and-jar-of-berries-3621dec985e4aa12bf5dfd382e728197.png?f=xxs);
+    }
+
+    .item:nth-child(9) {
+        background-image: url(https://www.ikea.com/images/grey-dining-chair-f636e102a5ecc90c966357c47baeae26.png?f=xxs);
+    }
+
+    .item:nth-child(10) {
+        background-image: url(https://www.ikea.com/images/cake-in-spring-form-pan-mixing-bowl-and-measuring-cups-99d729521aa28940459152fe246931af.png?f=xxs);
+    }
+
+    .item:not(:last-child) {
+        margin-right: 10px;
+    }
+
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+
+    }
+
+    .topnav {
+        overflow: hidden;
+        background-color: #e9e9e9;
+        height: 55px;
+    }
+
+    .f {
+        float: left;
+        display: block;
+        color: black;
+        text-align: center;
+        padding-top: 14px;
+        padding-right: 25px;
+        padding-bottom: 14px;
+        padding-left: 25px;
+        text-decoration: none;
+        font-size: 22px;
+    }
+
+    .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .q {
+        float: left;
+        display: block;
+        color: black;
+        text-align: center;
+        padding-top: 7px;
+        padding-right: 30px;
+        padding-bottom: 3px;
+        padding-left: 30px;
+        text-decoration: none;
+        font-size: 22px;
+    }
+
+    .topnav a.active {
+        background-color: #2196F3;
+        color: white;
+        height: 100%;
+    }
+
+    .topnav .search-container {
+        float: left;
+        padding-right: 10px;
+        padding-left: 40px;
+
+    }
+
+    .topnav .user {
+        float: left;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .topnav input[type=text] {
+        padding: 18px;
+        margin-top: 8px;
+        font-size: 17px;
+        border: none;
+        border-top-left-radius: 27px;
+        border-bottom-left-radius: 27px;
+        width: 700px;
+        height: 40px;
+    }
+
+    .topnav .search-container button {
+        float: right;
+        padding: 10px 10px;
+        margin-top: 8px;
+        margin-right: 16px;
+        background: white;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+        border-top-right-radius: 27px;
+        border-bottom-right-radius: 27px;
+        height: 40px;
+    }
+
+    .topnav .user button {
+        float: right;
+        padding: 10px 10px;
+        margin-top: 8px;
+        margin-right: 16px;
+        background: white;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+        border-radius: 27px;
+        height: 40px;
+    }
+
+    .topnav .search-container button:hover {
+        background: #ccc;
+    }
+
+    .topnav .user button:hover {
+        background: #ccc;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .topnav .search-container {
+            float: none;
+        }
+
+        .topnav .user {
+            float: none;
+        }
+
+        .topnav a, .topnav input[type=text], .topnav .search-container button {
+            float: none;
+            display: block;
+            text-align: left;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 14px;
+        }
+
+        .topnav input[type=text] {
+            border: 1px solid #ccc;
+        }
+    }
+
+    h2 {
+        font-family: "Cascadia";
+        font-size: 27px;
+    }
+
+    .wrapper {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: 2fr 4px 1fr 4px 1fr;
+        grid-template-rows: 5fr 4px 1fr 4px 5fr;
+        height: 900px;
+        background-color: #fff;
+        color: #444;
+    }
+
+    .box {
+        background-color: #444;
+        color: #fff;
+        font-size: 150%;
+
+    }
+
+    .a {
+        background-image: url(https://www.ikea.com/ext/ingkadam/m/1b2b64dff6d6f43c/original/PH185020.jpg?f=s);
+        background-size: cover;
+        grid-column: 1;
+        grid-row: 1/span 5;
+
+    }
+
+    .b {
+        background-image: url(https://www.ikea.com/ext/ingkadam/m/5f265f6e452e9176/original/PH186980-crop001.jpg?f=xs);
+        background-size: cover;
+        grid-column: 3;
+        grid-row: 1;
+    }
+
+    .c {
+        background-image: url(https://www.ikea.com/ext/ingkadam/m/cf905e8929140e2/original/PH188014.jpg?f=xs);
+        background-size: cover;
+        grid-column: 3;
+        grid-row: 3 /6;
+    }
+
+    .d {
+        background-image: url(https://www.ikea.com/ext/ingkadam/m/4ac987f9a4ebe1b8/original/PH186991-crop001.jpg?f=xs);
+        background-size: cover;
+        grid-column: 5;
+        grid-row: 1/4;
+    }
+
+    .e {
+        background-image: url(https://www.ikea.com/ext/ingkadam/m/117dd0ea7965dfee/original/PH186087.jpg?f=xs);
+        background-size: cover;
+        grid-column: 5;
+        grid-row: 5;
+    }
+
+    .list {
+        display: flex;
+        padding-left: 50px;
+        padding-right: 50px;
+        overflow-x: scroll;
+    }
+
+    .item {
+        height: 309px;
+        width: 232px;
+        flex-shrink: 0;
+    }
+
+    #cat1 {
+        margin-left: 70px;
+    }
+
+    .item:not(:last-child) {
+        margin-right: 10px;
+    }
+</style>
+
+</head>
+<div class="topnav">
+    <a href="https://www.ikea.com/us/en/" class="q" id="2">
+        <img src="https://www.ikea.com/us/en/static/ikea-logo.f7d9229f806b59ec64cb.svg" alt></a>
+    <a class="f" href="#about">About</a>
+    <a class="f" href="#contacts">Contact</a>
+    <a class="f" href="#categories">Categories</a>
+
+    <div class="search-container">
+        <form method="post">
+            <input type="text" placeholder="Search.." name="search">
+            <button onclick="location.href='{{ url_for("reg_get") }}'" type="submit"><i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+    <div class="user">
+        {% if name %}
+            <form action='{{ url_for("account_get") }}'>
+                <div>
+                    <button>{{ name.first_name }}
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </form>
+        {% else %}
+            <form action='{{ url_for("auth_get") }}'>
+                <div>
+                    <button>Hej! Log in or sign up
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+</div>
+<br>
+<br>
+<h2 id="1">Cozy up your living room for fall!</h2>
+<br>
+<div class="wrapper">
+    <div class="box a" onclick="location.href='{{ url_for("category", cat_id=1) }}'"></div>
+    <div class="box b" onclick="location.href='{{ url_for("category", cat_id=4) }}'"></div>
+    <div class="box c" onclick="location.href='{{ url_for("category", cat_id=2) }}'"></div>
+    <div class="box d" onclick="location.href='{{ url_for("category", cat_id=6) }}'"></div>
+    <div class="box e" onclick="location.href='{{ url_for("category", cat_id=5) }}'"></div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h2 id="cat1">Shop our top categories</h2>
+
+<div class="viewport">
+    <ul class="list">
+        <a name="categories"></a>
+        <li class="item" onclick="location.href='{{ url_for("category", cat_id=2) }}'">Armchairs</li>
+        <li class="item" onclick="location.href='{{ url_for("category", cat_id=1) }}'">Sofas</li>
+        <li class="item" onclick="location.href='{{ url_for("category", cat_id=3) }}'">Sectionals</li>
+        <li class="item" onclick="location.href='{{ url_for("category", cat_id=4) }}'">Pillows & covers</li>
+        <li class="item" onclick="location.href='{{ url_for("category", cat_id=5) }}'">Throw blankets</li>
+        <li class="item" onclick="location.href='{{ url_for("category", cat_id=6) }}'">Candles and holders</li>
+        <li class="item" onclick="location.href='{{ url_for("category", cat_id=7) }}'">Dining tables</li>
+        <li class="item" onclick="location.href='{{ url_for("category", cat_id=2) }}'">Dining chairs</li>
+        <li class="item" onclick="location.href='{{ url_for("category", cat_id=8) }}'">Bakeware</li>
+    </ul>
+</div>
+<br>
+<br>
+<br>
+<h2>Contacts</h2>
+<br>
+<a>Официальный представитель:</a>
+<br>
+<br>
+<a>Шайхулова Раиля Рамилевна</a>
+<br>
+<br>
+<a href="https://vk.com/railysheykh" name="contacts">Vk</a>
+<br>
+<br>
+<a href="https://www.instagram.com/_tvoi_raii_/">Instagram: @_tvoi_raii_</a>
+<br>
+<br>
+<br>
+<a href="https://t.me/TvoiRaiii">Telegram: @TvoiRaiii</a>
+<br>
+<br>
+<br>
+<a>Email: shaykhulova.railya@gmail.com</a>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>
+</html>

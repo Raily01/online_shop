@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    h2 {
+        margin-left: 30px;
+    }
+
+    .reg {
+        margin: 100px;
+        margin-left: 200px;
+        margin-top: 10px;
+    }
+
+    .reg input[type=text] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 25px;
+    }
+
+    .reg input[type=email] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 25px;
+    }
+
+    .h6 {
+        padding-top: 10px;
+        padding-left: 10px;
+        margin-bottom: 0px;
+    }
+
+    #userPassword {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 25px;
+    }
+
+    #regbut {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 425px;
+        height: 42px;
+        background-color: #4674cfd6;
+    }
+
+    .q {
+        padding: 50px;
+    }
+
+    #alrreg {
+        display: inline-block;
+    }
+</style>
+<a href='{{ url_for("main") }}'>
+    <img class="q" src="https://www.ikea.com/us/en/static/ikea-logo.f7d9229f806b59ec64cb.svg" alt>
+</a>
+<form method="post">
+    <div class="reg">
+        <h2>Authorization</h2>
+        <h3 style="color: red">Some of your data is wrong</h3>
+        <input type="email" id="mail" placeholder="email" name="email">
+        <br>
+        <input id="userPassword" type="password" name="password" placeholder="password">
+        <br>
+        <button type="submit" id="regbut" onclick="final()">Submit</button>
+        <br>
+        <p class="h6" id="alrreg">Do not registered?</p>
+        <a href='{{ url_for("reg_get") }}'>Register</a>
+    </div>
+</form>
+<script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+<script>
+    console.log("qwer");
+
+    function valemail() {
+        console.log("mail check");
+        var email = document.getElementById("mail").value;
+        if (!!!email) {
+            alert("email cannot be empty");
+        } else if (email.length < 5) {
+            alert("email length cannot be less than 5");
+        } else if (email.includes('@') === false) {
+            alert("email should include @ symbol");
+        } else {
+            return true;
+        }
+    }
+
+    function valpass() {
+        var pass = document.getElementById("userPassword").value;
+        if (!!!pass) {
+            alert("password cannot be empty");
+        } else if (pass.length < 6) {
+            alert("pass length cannot be less than 6");
+        } else {
+            return true;
+        }
+    }
+
+    function final() {
+        if (valemail() && valpass()) {
+            console.log("wow");
+        } else {
+            console.log("oops");
+        }
+    }
+
+</script>
+</body>
+</html>

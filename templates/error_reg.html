@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<style>
+    h2 {
+        margin-left: 30px;
+    }
+
+    .reg {
+        margin: 100px;
+        margin-left: 200px;
+        margin-top: 10px;
+    }
+
+    .reg input[type=text] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 42px;
+    }
+
+    .reg input[type=date] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 42px;
+    }
+
+    .reg input[type=tel] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 42px;
+    }
+
+    .reg input[type=email] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 42px;
+    }
+
+    .h6 {
+        padding-top: 10px;
+        padding-left: 10px;
+        margin-bottom: 0px;
+    }
+
+    small {
+        padding: 10px;
+        padding-left: 10px;
+    }
+
+    select {
+        width: 400px;
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    #userPassword {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 42px;
+    }
+
+    #regbut {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 42px;
+        background-color: #4674cfd6;
+    }
+
+    .q {
+        padding: 50px;
+    }
+
+    #alrreg {
+        display: inline-block;
+    }
+</style>
+
+
+<a href='{{ url_for("main") }}' id="2">
+    <img class="q" src="https://www.ikea.com/us/en/static/ikea-logo.f7d9229f806b59ec64cb.svg" alt>
+</a>
+<form method="POST">
+    <div class="reg">
+        <h2>Registration</h2>
+        <h4 style="color: red">Profile with this email is already registered</h4>
+        <input id="firstname" type="text" placeholder="First Name" name="fname">
+        <br>
+        <input id="lastname" type="text" placeholder="Last Name" name="lname">
+        <br>
+        <p class="h6">Birdth date</p>
+        <input id="bd" type="date" value="2018-07-22" name="bd">
+        <br>
+        <p class="h6">Country</p>
+        <select id="country" name="country">
+            <option>USA</option>
+            <option>Switherland</option>
+            <option>Japan</option>
+            <option>Montenegro</option>
+        </select>
+        <br>
+        <input id="city" type="text" placeholder="City" name="city">
+        <br>
+        <input id="address" type="text" placeholder="Street address" name="address">
+        <br>
+        <input id="code" type="text" placeholder="Zip code" name="zipcode" pattern="[0-9]{6}">
+        <br>
+        <small>Format: 423330</small>
+        <br>
+        <input id="number" type="tel" pattern="\+[0-9]{11}" placeholder="Phone number" name="phone">
+        <br>
+        <small>Format: +79061200077</small>
+        <br>
+        <input id="mail" type="email" placeholder="email" name="email">
+        <br>
+        <input id="userPassword" type="password" placeholder="password" name="password">
+        <p class="h6">Currency</p>
+        <select name="currency">
+            <option>EUR</option>
+            <option>USD</option>
+            <option>YEN</option>
+        </select>
+        <br>
+        <button type="submit" id="regbut" onclick="final()">Submitt</button>
+        <br>
+        <p class="h6" id="alrreg">Already registered?</p>
+        <a href='{{ url_for("auth_get") }}' class="link-primary">Log in</a>
+    </div>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+<script>
+    console.log("qwer");
+
+    function valnames() {
+        console.log("names check");
+        var fname = document.getElementById("firstname").value;
+        var lname = document.getElementById("lastname").value;
+        var bd = document.getElementById("bd").value;
+        if (!!!fname) {
+            alert("first name cannot be empty");
+        } else if (fname.length < 3) {
+            alert("first name length cannot be less than 3");
+        } else if (!!!lname) {
+            alert("last name cannot be empty")
+        } else if (lname.length < 3) {
+            alert("last name length cannot be less than 3");
+        } else if (!!!bd) {
+            alert("birth date cannot be empty")
+        } else {
+            return true;
+        }
+    }
+
+    function valemail() {
+        console.log("mail check");
+        var email = document.getElementById("mail").value;
+        var phone = document.getElementById("number").value;
+        if (!!!phone) {
+            alert("phone cannot be empty");
+        } else if (!!!email) {
+            alert("email cannot be empty");
+        } else if (email.length < 5) {
+            alert("email length cannot be less than 5");
+        } else if (email.includes('@') === false) {
+            alert("email should include @ symbol");
+        } else {
+            return true;
+        }
+    }
+
+    function valaddress() {
+        console.log("city check");
+        var city = document.getElementById("city").value;
+        var addr = document.getElementById("address").value;
+        var zip = document.getElementById("code").value;
+        var country = document.getElementById("country").value;
+        console.log(country);
+        if (!!!city) {
+            alert("city field cannot be empty");
+        } else if (city.length < 4) {
+            alert("cities length cannot be less than 4");
+        } else if (!!!addr) {
+            alert("address cannot be empty");
+        } else if (addr.length < 10) {
+            alert("address length cannot be less than 10");
+        } else if (!!!zip) {
+            alert("zip code cannot be empty");
+        } else {
+            return true;
+        }
+    }
+
+    function valpass() {
+        var dat = document.getElementById("bd").value;
+        console.log("data");
+        console.log(dat);
+        var pass = document.getElementById("userPassword").value;
+        if (!!!pass) {
+            alert("password cannot be empty");
+        } else if (pass.length < 6) {
+            alert("pass length cannot be less than 6");
+        } else {
+            return true;
+        }
+    }
+
+    function final() {
+        if (valnames() && valaddress() && valemail() && valpass()) {
+            console.log("wow");
+        } else {
+            console.log("oops");
+        }
+    }
+</script>
+</body>
+</html>

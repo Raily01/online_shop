@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    div {
+        border: none;
+        margin-right: 100px;
+        margin-left: 100px;
+        margin-bottom: 20px;
+        width: 200px;
+        padding: 10px;
+    }
+
+    .image {
+        height: 270px;
+        width: 270px;
+    }
+
+    svg {
+        border: 20px;
+    }
+
+    h1 {
+        margin-left: 120px;
+    }
+
+    h4 {
+        margin-left: 120px;
+    }
+
+    body {
+        margin-left: 80px;
+        margin-right: 100px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .liked {
+        color: red;
+    }
+
+    .basket {
+        color: blue;
+    }
+</style>
+<a href='{{ url_for("main") }}' id="2">
+    <img class="q" src="https://www.ikea.com/us/en/static/ikea-logo.f7d9229f806b59ec64cb.svg" alt>
+</a>
+<h1>{{ title.cat_name }}</h1>
+<h4>{{ desc.description }}</h4>
+{% set counter = [] %}
+{% for item in items %}
+    <div style="display: inline-block;">
+        <a><img class="image" src="{{ item.image }}" alt></a>
+        <p>{{ item.item_name }}</p>
+        <p>{{ item.description }}</p>
+        <p>{{ item.price }}</p>
+        {#        <p>{{ ids }}</p>#}
+        {#        <p>{{ bask }}</p>#}
+
+        <button id="like_{{ item.id }}" data-product-id="{{ item.id }}"
+                class="{{ "like-btn liked" if item.id in ids else "like-btn" }}">
+            <svg id="image_like_{{ item.id }}" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                 fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+            </svg>
+        </button>
+        <button id="bask_{{ item.id }}" data-bask-id="{{ item.id }}"
+                class="{{ "bask-btn basket" if item.id in bask else "bask-btn" }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket-fill"
+                 viewBox="0 0 16 16">
+                <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z"/>
+            </svg>
+        </button>
+        {% set c = counter.append(1) %}
+    </div>
+    {% if counter|length == 4 %}
+        {% set counter = [] %}
+        <br>
+        <br>
+    {% endif %}
+{% endfor %}
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on("click", '.like-btn', function (e) {
+            $(this).toggleClass("liked");
+            let product_id = $(this).data("product-id")
+            console.log(product_id)
+            sendData(product_id);
+        });
+    });
+    $(document).ready(function () {
+        $(document).on("click", '.bask-btn', function (e) {
+            $(this).toggleClass("basket");
+            let product_id = $(this).data("bask-id")
+            console.log(product_id)
+            sendDataBask(product_id);
+        });
+    });
+
+    function sendData(item_id) {
+        console.log(typeof (item_id));
+        window.location = `../like/${item_id}`;
+    }
+
+    function sendDataBask(item_id) {
+        console.log(typeof (item_id));
+        window.location = `../bask/${item_id}`;
+    }
+</script>
+</html>

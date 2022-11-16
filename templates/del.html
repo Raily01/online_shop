@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    button {
+        border-radius: 20px;
+        width: 200px;
+        height: 30px;
+        background-color: #4674cfd6;
+    }
+    input[type=text] {
+        border-radius: 60px;
+        padding: 10px;
+        margin: 50px;
+        width: 400px;
+        height: 22px;
+    }
+</style>
+<a href='{{ url_for("main") }}' id="2">
+    <img class="q" src="https://www.ikea.com/us/en/static/ikea-logo.f7d9229f806b59ec64cb.svg" alt>
+</a>
+<form method="post" style='display:inline;' action='{{ url_for("del_post") }}'>
+    <input type="text" name="item_name" placeholder="name">
+    <button type="submit">Delete</button>
+</form>
+</body>
+</html>

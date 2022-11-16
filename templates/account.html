@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    h2 {
+        margin-left: 30px;
+    }
+
+    .reg {
+        margin: 100px;
+        margin-left: 200px;
+        margin-top: 10px;
+    }
+
+    .reg input[type=text] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 22px;
+    }
+
+    .reg input[type=date] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 22px;
+    }
+
+    .reg input[type=tel] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 22px;
+    }
+
+    .reg input[type=email] {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 22px;
+    }
+
+    #country {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 422px;
+        height: 42px;
+    }
+
+    .h6 {
+        padding-top: 10px;
+        padding-left: 10px;
+        margin-bottom: 0px;
+    }
+
+    small {
+        padding: 10px;
+        padding-left: 10px;
+    }
+
+    #cur {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 422px;
+        height: 42px;
+    }
+
+    #userPassword {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 25px;
+    }
+
+    #regbut {
+        border-radius: 20px;
+        padding: 10px;
+        margin: 10px;
+        width: 400px;
+        height: 42px;
+        background-color: #4674cfd6;
+    }
+
+    button {
+        border-radius: 20px;
+        width: 200px;
+        height: 30px;
+        background-color: #4674cfd6;
+    }
+
+    .q {
+        padding: 50px;
+    }
+
+</style>
+<a href='{{ url_for("main") }}'>
+    <img class="q" src="https://www.ikea.com/us/en/static/ikea-logo.f7d9229f806b59ec64cb.svg" alt>
+</a>
+<form style='display:inline;' action='{{ url_for("del_session") }}'>
+    <button>Logout</button>
+</form>
+<form style='display:inline;' action='{{ url_for("user_liked") }}'>
+    <button>Liked</button>
+</form>
+<form style='display:inline;' action='{{ url_for("user_basket") }}'>
+    <button>Basket</button>
+</form>
+<form style='display:inline;' action='{{ url_for("orders") }}'>
+    <button>Orders</button>
+</form>
+<form method="post">
+    <div class="reg">
+        <h2>My account</h2>
+        <input id="firstname" value="{{ user.first_name }}" type="text" name="fname">
+        <br>
+        <input id="lastname" type="text" value="{{ user.last_name }}" name="lname">
+        <br>
+        <p class="h6">Birdth date</p>
+        <input id="bd" type="date" value="{{ user.birth_date }}" name="bd">
+        <br>
+        <p class="h6">Country</p>
+        <select id="country" value="{{ user.country }}" name="country">
+            <option>USA</option>
+            <option>Switherland</option>
+            <option>Japan</option>
+            <option>Montenegro</option>
+        </select>
+        <br>
+        <input id="city" type="text" value="{{ user.city }}" name="city">
+        <br>
+        <input id="address" type="text" value="{{ user.address }}" name="address">
+        <br>
+        <input id="code" type="text" value="{{ user.zipcode }}" name="zipcode" pattern="[0-9]{6}">
+        <br>
+        <input id="number" type="tel" value="{{ user.number }}" pattern="\+[0-9]{11}" name="phone">
+        <br>
+        <input id="mail" type="email" value='{{ user.email }}' name="email">
+        <br>
+        <input id="userPassword" value="{{ user.pass }}" type="password" name="password">
+        <p class="h6" value="{{ user.currency }}">Currency</p>
+        <select name="currency" id="cur">
+            <option>EUR</option>
+            <option>USD</option>
+            <option>YEN</option>
+        </select>
+        <br>
+        <button type="submit" id="regbut">Submitt</button>
+    </div>
+</form>
+</body>
+</html>
